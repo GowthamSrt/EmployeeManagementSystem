@@ -23,7 +23,7 @@ public class HibernateConnection {
             try {
                 factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
             } catch (HibernateException e) {
-                System.out.println("Failed to connect to SessionFactory");
+                System.out.println("Failed to connect to SessionFactory" + e.getMessage());
             }
         }
         return factory;

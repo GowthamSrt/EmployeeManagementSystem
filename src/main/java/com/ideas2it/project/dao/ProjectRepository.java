@@ -52,7 +52,7 @@ public interface ProjectRepository {
 
     /**
      * Maps a row from the resultSet to an project object.
-     * @param resultSet The ResultSet containing the data.
+     * @param Name The ResultSet containing the data.
      */
     public Project mapRowToProject(int id, String Name) throws SQLException, DatabaseException;
 
@@ -62,7 +62,6 @@ public interface ProjectRepository {
      * @return A list of employee association with projects.
      */
     public List<Employee> getEmployeesByProjectId(int projectId) throws DatabaseException;
-
 }
 
     

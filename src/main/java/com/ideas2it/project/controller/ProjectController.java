@@ -67,7 +67,7 @@ public class ProjectController {
 						deleteProject();
 						break;
 					case 7:
-						displayEmployeesInProject();
+						displayEmployeesByProject();
 						break;
 					case 8:
 						return;
@@ -85,7 +85,6 @@ public class ProjectController {
     * Get the project Id from end user and checks for whether the project Id
     * already in Database. If not, then allows to add new project.
     *</p>
-    * @param projectName
     */
     public void createProject() {
         try {
@@ -150,7 +149,6 @@ public class ProjectController {
             System.out.print("Enter project Id to display: ");
             int id = scanner.nextInt();
             scanner.nextLine();
-
             Project project = projectService.getProjectById(id);
             if (project != null) {
                 System.out.printf("%-15s %-15s\n", "Project ID", "Project Name");
@@ -198,7 +196,7 @@ public class ProjectController {
     * Display the projects available in database and used to get the projects using project Id.
     *</p>
     */
-    public void displayEmployeesInProject() {
+    public void displayEmployeesByProject() {
         try {
              displayAllProjects();
              System.out.println("enter Project ID: ");

@@ -14,8 +14,7 @@ public interface DepartmentRepository {
     * method which adds the departmentId and name to the database with 
     * checking whether departmentId alreday available or not.
     * </p>
-    * @param departmentId
-    * @param departmentName
+    * @param department
     */
     public void addDepartment(Department department) throws DatabaseException;
 

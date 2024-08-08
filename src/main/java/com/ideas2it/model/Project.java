@@ -11,20 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.FetchType;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import com.ideas2it.model.Employee;
 
 /**
  * Represnts a project that can be associated with employees.
  * A project has a unique Identifier, a name and a list of employees
  * who participate in it.
  */
- 
- @Entity
- @Table (name = "project")
+@Entity
+@Table (name = "project")
 public class Project implements Serializable {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)

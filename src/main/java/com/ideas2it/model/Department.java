@@ -11,11 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.FetchType;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-
-import com.ideas2it.model.Employee;
 
 /**
  * <p>
@@ -24,10 +20,10 @@ import com.ideas2it.model.Employee;
  * </p>
  */
  
- @Entity
- @Table(name = "department")
+@Entity
+@Table(name = "department")
 public class Department implements Serializable {
-	@Id
+    @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	
@@ -60,16 +56,16 @@ public class Department implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public List<Employee> getEmployees(){
+    public List<Employee> getEmployees() {
         return employees;
     } 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 
-    public void addEmployee(Employee employee) {
-       this.employees.add(employee);
-    }
+//    public void addEmployee(Employee employee) {
+//       this.employees.add(employee);
+//    }
 
     @Override
     public String toString() {

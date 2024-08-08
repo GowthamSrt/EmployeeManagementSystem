@@ -26,11 +26,11 @@
 
         <property name = "hibernate.hbm2ddl.auto">
             update
-        </property>  
+        </property>
 
     <mapping class = "com.ideas2it.model.Employee"/>
     <mapping class = "com.ideas2it.model.Department"/>
     <mapping class = "com.ideas2it.model.Project"/>
-    </session-factory>  
+    </session-factory>
   
 </hibernate-configuration>

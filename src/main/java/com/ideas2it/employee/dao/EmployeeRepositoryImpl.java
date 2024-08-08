@@ -2,29 +2,19 @@ package com.ideas2it.employee.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 import org.hibernate.HibernateException; 
 import org.hibernate.Session; 
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
-import com.ideas2it.model.Employee;
-import com.ideas2it.model.Department;
-import com.ideas2it.model.Project;
 import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.model.Employee;
+import com.ideas2it.model.Project;
 import com.ideas2it.utils.HibernateConnection;
 
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
-    
-    /**
-    * <p>
-    * Method which adds the details of employee taken from controller into
-    * the database.
-    * </p>
-    */
+
     public void addEmployee(Employee employee) throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
@@ -36,7 +26,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			if (transaction != null) {
 			    transaction.rollback();
 			}
-			e.printStackTrace();
             throw new DatabaseException("Error while adding to Database  :  " + e);
 			
         } finally {
@@ -44,12 +33,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     }
 
-   /**
-    * <p>
-    * Method which delete the details of employee in the database by using the
-    * employee Id.
-    * </p>
-    */
     public void deleteEmployee(int id) throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
@@ -64,7 +47,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			else {
 			    throw new DatabaseException("No Employee found in ID : " + id);
 			}
-
         } catch (HibernateException e) {
             throw new DatabaseException("Not able to delete  "+ e + "  " + id);
         } finally {
@@ -72,11 +54,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     }
 
-    /**
-    * <p>
-    * Returns all the employees from the database.
-    * </p>
-    */
     public List<Employee> getAllEmployees() throws DatabaseException {
         List<Employee> employees = new ArrayList<>();
         Session session = HibernateConnection.getFactory().openSession();
@@ -99,11 +76,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 		return employees;
     }
 
-    /**
-    * <p>
-    * Method return a single employee by using the employee Id search.
-    * </p>
-    */
     public Employee findEmployeeById(int id) throws DatabaseException {
 		Session session = HibernateConnection.getFactory().openSession();
 		Transaction transaction = null;
@@ -125,12 +97,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 		 return employee;
     }
 
-    /**
-    * <p>
-    * Method which updates the details of employee taken from controller by
-    * Checking already exist or not.
-    * </p>
-    */
     public void updateEmployee(Employee employee) throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
@@ -149,12 +115,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     }
 
-    /**
-     * <p>
-     * Adds a project to an employee by fetching the project and employee
-     * id.
-     * </p>
-     */    
     public void addProjectToEmployee(int employeeId, int projectId)
                                            throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
@@ -182,12 +142,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     } 
 
-    /**
-     * <p>
-     * Remove a project to an employee by fetching the project and employee
-     * id.
-     * </p>
-     */ 
     public void removeProjectFromEmployee(int employeeId, int projectId)
                                            throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
@@ -215,8 +169,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         } finally {
              session.close();
         }
-    } 
-              
+    }
 }
        
 

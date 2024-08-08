@@ -13,7 +13,6 @@ import com.ideas2it.model.Employee;
 import com.ideas2it.exception.DatabaseException;
 
 /**
-/**
 * <h1>Department Controller</h1>
 * <p>
 * Handling all the department related inputs from user and outputs to
@@ -77,8 +76,6 @@ public class DepartmentController {
     * Method which allows to add departments along with department Id.
     * It checks whether Id is in database, if not in database then it adds
     *</p>
-    *@param departmentId specifies a department
-    *@param departmentName Name of the department
     */
     public void createDepartment() {
         try {

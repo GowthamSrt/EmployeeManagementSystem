@@ -2,12 +2,9 @@ package com.ideas2it.department.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.HibernateException; 
 import org.hibernate.query.Query;
-import org.hibernate.Session; 
-import org.hibernate.SessionFactory;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.ideas2it.model.Department;
@@ -15,22 +12,13 @@ import com.ideas2it.model.Employee;
 import com.ideas2it.exception.DatabaseException;
 import com.ideas2it.utils.HibernateConnection;
 
-
-/**
-* <p>
-* class implements the methods to add, update, delete, display the * * departments in the database.
-* </p> 
-*/
 public class DepartmentRepositoryImpl implements DepartmentRepository  {
-
     private Department department;
-    
     public void addDepartment(Department department) throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            //Department department = new Department(name);
             int id = (Integer) session.save(department);
             transaction.commit();
         } catch (HibernateException e) {

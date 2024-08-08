@@ -2,36 +2,19 @@ package com.ideas2it.project.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 import org.hibernate.HibernateException; 
 import org.hibernate.Session; 
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.Hibernate;
 
 import com.ideas2it.model.Project;
 import com.ideas2it.model.Employee;
-import com.ideas2it.model.Department;
 import com.ideas2it.exception.DatabaseException;
 import com.ideas2it.utils.HibernateConnection;
 
 
-/**
-* <p>
-* Class implements the project related operations and from here onwards
-* all the project related operations are done as per the user request.
-* </p>
-*/
 public class ProjectRepositoryImpl implements ProjectRepository {
 
-    /**
-    * <p>
-    * Method which adds the details of projects taken from controller.
-    * </p>
-    * *@param projectName
-    */
     public void addProject(Project project) throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
@@ -50,13 +33,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
     }
 
-
-    /**
-    * <p>
-    * Method which updates the details of project taken from controller and
-    * here updation only done if the project is already exist.
-    * </p>
-    */
     public void updateProject(Project project) throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
@@ -78,12 +54,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
     }
 
-   /**
-    * <p>
-    * Delete the the project as per user request if and only if there is
-    * no employee is assigned to that particular project.
-    * </p>
-    */
     public void deleteProject(int id) throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
@@ -105,12 +75,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         } 
     }
 
-    /**
-    * <p>
-    * Returns the all the projectId and projectName from the list that we have
-    * currently in.
-    * </p>
-    */
     public List<Project> getAllProjects() throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
@@ -130,11 +94,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         return projects;
     }
 
-    /**
-     * To finds a project by ID from the database.
-     * @param id - project to find.
-     * @return The project if found, null otherwise.
-     */
     public Project findProjectById(int id) throws DatabaseException {
         Session session = HibernateConnection.getFactory().openSession();
         try {
@@ -150,16 +109,9 @@ public class ProjectRepositoryImpl implements ProjectRepository {
             throw new DatabaseException ("No project found  " + id);
         } finally {
             session.close();
-
         }
-
     }
 
-
-    /**
-     * Maps a row from the resultSet to an project object.
-     * @param resultSet The ResultSet containing the data.
-     */
     public Project mapRowToProject(int id, String name) throws DatabaseException {
 		Session session = HibernateConnection.getFactory().openSession();
         Transaction transaction = null;
@@ -183,11 +135,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		return project;
     }
 
-    /**
-     * Retrives the employee association with an projects by their id.
-     * @param projectId - Id of project.
-     * @return A list of employee association with projects.
-     */
     public List<Employee> getEmployeesByProjectId(int projectId) throws DatabaseException {
         List<Employee> employees = new ArrayList<>();
         Session session = HibernateConnection.getFactory().openSession();
@@ -207,9 +154,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
              throw new DatabaseException ("No employee found in this project with ID : " + projectId);
          } finally {
              session.close();
-         } 
-
+         }
         return employees;
-    } 
-
+    }
 }

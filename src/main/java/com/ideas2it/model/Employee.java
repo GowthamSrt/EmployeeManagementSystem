@@ -17,9 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.ideas2it.model.Department;
-import com.ideas2it.model.Project;
-
 /**
 *<p>
 * Class initialize all the Employee parameter inputs to a List 

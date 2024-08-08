@@ -2,11 +2,8 @@ package com.ideas2it.department.service;
 
 import java.util.List;
 
-import com.ideas2it.department.dao.DepartmentRepositoryImpl;
-import com.ideas2it.department.service.DepartmentServiceImpl;
 import com.ideas2it.model.Department;
 import com.ideas2it.model.Employee;
-import com.ideas2it.employee.service.EmployeeService;
 import com.ideas2it.exception.DatabaseException;
 
 /**
@@ -62,7 +59,7 @@ public interface DepartmentService {
 	 * <p>
      * Finds employees by department ID.
 	 * </p>
-     * @param Id - deparmnetID of the department.
+     * @param id - deparmnetID of the department.
      * @return list employee.
      */
     public List<Employee> getEmployeesByDepartmentId(int id) throws DatabaseException;
