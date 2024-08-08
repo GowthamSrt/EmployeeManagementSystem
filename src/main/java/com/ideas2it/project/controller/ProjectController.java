@@ -10,7 +10,7 @@ import com.ideas2it.model.Employee;
 import com.ideas2it.model.Project;
 import com.ideas2it.project.service.ProjectService;
 import com.ideas2it.project.service.ProjectServiceImpl;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 
 
 /**
@@ -77,6 +77,7 @@ public class ProjectController {
 			}
 		} catch (InputMismatchException e) {
 			logger.error("Please Enter a Valid Option (Numeric only)");
+            scanner.next();
 		}
     }
 
@@ -96,7 +97,7 @@ public class ProjectController {
             idCounter++;
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
-        } catch (DatabaseException e) {
+        } catch (EmployeeException e) {
             logger.error("Unable to add project" + e);
         }
     }
@@ -116,7 +117,7 @@ public class ProjectController {
             logger.info("Project deleted successfully.");
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
-        } catch (DatabaseException e) {
+        } catch (EmployeeException e) {
             logger.error("Unable to delete project" + e);
         }
     }
@@ -134,7 +135,7 @@ public class ProjectController {
             System.out.println("------------------------------------");
             projectService.getAllProjects().forEach(System.out::println);
             System.out.println("------------------------------------");
-        } catch (DatabaseException e) {
+        } catch (EmployeeException e) {
             logger.error("No projects to display" + e);
         }
     }
@@ -160,7 +161,7 @@ public class ProjectController {
             }
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
-        } catch (DatabaseException e) {
+        } catch (EmployeeException e) {
             logger.error("Unable to show that project" + e);
         }
     }
@@ -186,8 +187,8 @@ public class ProjectController {
             logger.info("Project updated successfully.");
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
-        } catch (DatabaseException e) {
-            logger.error("Unable to update project" + e);
+        } catch (EmployeeException e) {
+            logger.error("Unable to update project", e);
         }
     }
 
@@ -197,11 +198,11 @@ public class ProjectController {
     *</p>
     */
     public void displayEmployeesByProject() {
+        displayAllProjects();
+        System.out.println("enter Project ID: ");
+        int id=scanner.nextInt();
+        scanner.nextLine();
         try {
-             displayAllProjects();
-             System.out.println("enter Project ID: ");
-             int id=scanner.nextInt();
-             scanner.nextLine();
              List<Employee> employees = projectService.getProjectById(id).getEmployees();
 
              if (employees.isEmpty()) {
@@ -225,8 +226,8 @@ public class ProjectController {
              }
          } catch(IllegalArgumentException e){
               logger.error(e.getMessage());
-        } catch (DatabaseException e) {
-            logger.error("No employees found in this project" + e);
+        } catch (EmployeeException e) {
+            logger.error("No project found with this ID ", e);
         }
     }
 }

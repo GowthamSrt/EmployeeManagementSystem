@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import com.ideas2it.model.Department;
 import com.ideas2it.model.Employee;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 
 public interface DepartmentRepository {
    /**
@@ -16,7 +16,7 @@ public interface DepartmentRepository {
     * </p>
     * @param department
     */
-    public void addDepartment(Department department) throws DatabaseException;
+    public void addDepartment(Department department) throws EmployeeException;
 
     /**
     * <p>
@@ -24,21 +24,21 @@ public interface DepartmentRepository {
     * added and then it permits for updation.
     * </p>
     */
-    public void updateDepartment(Department department) throws DatabaseException;
+    public void updateDepartment(Department department) throws EmployeeException;
 
     /**
     * <p>
     * method deletes the department from the database by getting Id from user
     * </p>
     */
-    public void deleteDepartment(int id) throws DatabaseException;
+    public void deleteDepartment(int id) throws EmployeeException;
 
     /**
     * <p>
     * display all the departments in a table of Id and name of departments.
     * </p>
     */
-    public List<Department> getAllDepartments() throws DatabaseException;
+    public List<Department> getAllDepartments() throws EmployeeException;
 
     /**
     * <p>
@@ -46,13 +46,13 @@ public interface DepartmentRepository {
     * employees in a specific department.
     * </p>
     */
-    public Department findDepartmentById(int id) throws DatabaseException;
+    public Department findDepartmentById(int id) throws EmployeeException;
 
     /**
     * <p>
     * Get all the departments that are currently available in the database.
     * </p>
     */
-    public List<Employee> getEmployeesByDepartmentId(int departmentId) throws DatabaseException;
+    public List<Employee> getEmployeesByDepartmentId(int departmentId) throws EmployeeException;
 
 }

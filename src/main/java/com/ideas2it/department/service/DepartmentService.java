@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ideas2it.model.Department;
 import com.ideas2it.model.Employee;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 
 /**
 * <p>
@@ -22,7 +22,7 @@ public interface DepartmentService {
     * @param id denotes the id of department
     * @param name denotes the name.
     */
-    public void addDepartment(int id, String name) throws DatabaseException;
+    public void addDepartment(int id, String name) throws EmployeeException;
 
      /**
     * <p>
@@ -30,7 +30,7 @@ public interface DepartmentService {
     * particular department else it'll not accept.
     * </p>
     */
-    public void removeDepartment(int id) throws IllegalArgumentException, DatabaseException;
+    public void removeDepartment(int id) throws IllegalArgumentException, EmployeeException;
 
     /**
     * <p>
@@ -38,14 +38,14 @@ public interface DepartmentService {
     * deoartment to a employee.
     * </p>
     */ 
-    public List<Department> getAllDepartments() throws DatabaseException;
+    public List<Department> getAllDepartments() throws EmployeeException;
 
     /**
     * <p>
     * To get the department by Id to make the operations needed.
     * </p>
     */
-    public Department getDepartmentById(int id) throws IllegalArgumentException, DatabaseException;
+    public Department getDepartmentById(int id) throws IllegalArgumentException, EmployeeException;
 
     /**
     * <p>
@@ -53,7 +53,7 @@ public interface DepartmentService {
     * department.
     * </p>
     */
-    public void updateDepartment(int id, String name) throws IllegalArgumentException, DatabaseException;
+    public void updateDepartment(int id, String name) throws IllegalArgumentException, EmployeeException;
     
 	/**
 	 * <p>
@@ -62,6 +62,6 @@ public interface DepartmentService {
      * @param id - deparmnetID of the department.
      * @return list employee.
      */
-    public List<Employee> getEmployeesByDepartmentId(int id) throws DatabaseException;
+    public List<Employee> getEmployeesByDepartmentId(int id) throws EmployeeException;
 
 }

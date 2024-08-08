@@ -6,7 +6,7 @@ import java.util.List;
 import com.ideas2it.project.dao.ProjectRepositoryImpl;
 import com.ideas2it.model.Project;
 import com.ideas2it.project.service.ProjectServiceImpl;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 
 /**
  * <p>
@@ -20,7 +20,7 @@ public interface ProjectService {
      * @param id - The unique identifier for the project.
      * @param name - The name of the project
      */
-    public void addProject(int id, String name) throws IllegalArgumentException, DatabaseException;
+    public void addProject(int id, String name) throws IllegalArgumentException, EmployeeException;
 
     /**
      * Remove a project from the repository by its Id.
@@ -28,13 +28,13 @@ public interface ProjectService {
      * @param id - The unique identifier of the project to be removed.
      * @thows IllegalArgumentException if the project with the given ID is not found.
      */
-    public void removeProject(int id) throws DatabaseException;
+    public void removeProject(int id) throws EmployeeException;
 
     /**
      * Retrieves all project from the repository.
      * @return A List of all project.
      */     
-    public List<Project> getAllProjects() throws DatabaseException;
+    public List<Project> getAllProjects() throws EmployeeException;
 
     /**
      * Retrieves a project by its unique identifier.
@@ -42,7 +42,7 @@ public interface ProjectService {
      *@param id - The unique identifier of the project.
      *@return The project with the given ID, or null if not found.
      */
-    public Project getProjectById(int id) throws DatabaseException;
+    public Project getProjectById(int id) throws EmployeeException;
 
     /**
      * Updates the details of an existing project.
@@ -50,7 +50,7 @@ public interface ProjectService {
      * @param name - The new name for the project.
      * @thows IllegalArgumentException if the project with the given ID is not found.
      */
-    public void updateProject(int id, String name) throws IllegalArgumentException, DatabaseException;
+    public void updateProject(int id, String name) throws IllegalArgumentException, EmployeeException;
 
 }
 

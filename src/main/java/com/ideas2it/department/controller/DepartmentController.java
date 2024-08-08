@@ -10,7 +10,7 @@ import com.ideas2it.utils.EmployeeValidator;
 import com.ideas2it.department.service.DepartmentService;
 import com.ideas2it.department.service.DepartmentServiceImpl;
 import com.ideas2it.model.Employee;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 
 /**
 * <h1>Department Controller</h1>
@@ -43,10 +43,10 @@ public class DepartmentController {
 				System.out.println("-------------------------------");
 				System.out.print("Enter your choice: ");
 				int choice = scanner.nextInt();
-
+                scanner.nextLine();
 				switch (choice) {
 					case 1:
-						createDepartment();
+						addDepartment();
 						break;
 					case 2:
 						deleteDepartment();
@@ -68,6 +68,7 @@ public class DepartmentController {
 			}
         } catch (InputMismatchException e) {
 			logger.error("Please Enter a Valid Option (Numeric only)");
+            scanner.next();
 		}
     }
 
@@ -77,7 +78,7 @@ public class DepartmentController {
     * It checks whether Id is in database, if not in database then it adds
     *</p>
     */
-    public void createDepartment() {
+    public void addDepartment() {
         try {
             String name = "";
             boolean checkName = false;
@@ -96,8 +97,8 @@ public class DepartmentController {
             idCounter++;
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
-        } catch (DatabaseException e) {
-            logger.error("Error while adding department" + e);
+        } catch (EmployeeException e) {
+            logger.error("Error while adding department", e);
         }
     }
 
@@ -107,15 +108,15 @@ public class DepartmentController {
     * </p>
     */
     public void deleteDepartment() {
+        System.out.print("Enter Department ID: ");
+        int id = scanner.nextInt();
         try {
-            System.out.print("Enter Department ID: ");
-            int id = scanner.nextInt();
             departmentService.removeDepartment(id);
             System.out.println("Department deleted successfully.");
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
-        } catch (DatabaseException e) {
-            logger.error("Error while deleting department" + e);
+        } catch (EmployeeException e) {
+            logger.error("Error while deleting department", id, e);
         }
     }
 
@@ -131,8 +132,8 @@ public class DepartmentController {
             System.out.println("------------------------------");
             departmentService.getAllDepartments().forEach(System.out::println);
             System.out.println("------------------------------");
-        } catch (DatabaseException e) {
-            logger.error("No department found" + e);
+        } catch (EmployeeException e) {
+            logger.error("No department found", e);
         }
     }
 
@@ -140,18 +141,18 @@ public class DepartmentController {
  * prompts the user to enter details for an existing department ID and updates its information.
  */
     public void updateDepartment() {
+        System.out.print("Enter the ID to update: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
         try {
-            System.out.print("Enter the ID to update: ");
-            int id = scanner.nextInt();
-            scanner.nextLine();
             System.out.print("Enter new name: ");
             String name = scanner.nextLine();
             departmentService.updateDepartment(id, name);
             logger.info("Department updated successfully.");
         } catch (IllegalArgumentException e) {
-            logger.error("No employee found" + e.getMessage());
-        } catch (DatabaseException e) {
-            logger.error("Error while updating department" + e);
+            logger.error("No department found", e.getMessage());
+        } catch (EmployeeException e) {
+            logger.error("Error while updating department", id, e);
         }
     }
 
@@ -162,11 +163,11 @@ public class DepartmentController {
      * </p>
      */
     public void displayEmployeesInDepartment() {
+        displayAllDepartments();
+        System.out.println("enter Department ID: ");
+        int id=scanner.nextInt();
+        scanner.nextLine();
         try {
-             displayAllDepartments();
-             System.out.println("enter Department ID: ");
-             int id=scanner.nextInt();
-             scanner.nextLine();
              List<Employee> employees = departmentService.getEmployeesByDepartmentId(id);
              System.out.printf("Employees in Department %d:\n",id);
              System.out.printf("%-10s %-20s %-15s %-20s %-25s %-15s\n", "EmployeeID", "Name", "Age", "Department", "Email", "Mobile");
@@ -177,8 +178,8 @@ public class DepartmentController {
              System.out.println("-----------------------------------------------------------------------------------------------------------------");
          } catch(IllegalArgumentException e){
               logger.error(e.getMessage());
-         } catch (DatabaseException e) {
-            logger.error("Department not found" + e);
+         } catch (EmployeeException e) {
+            logger.error("Department not found with this ID : " , id, e);
         }
     }
 }

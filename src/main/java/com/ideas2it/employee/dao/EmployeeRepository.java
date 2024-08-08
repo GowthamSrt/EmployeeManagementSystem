@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 import com.ideas2it.model.Employee;
 import com.ideas2it.employee.service.EmployeeService;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 
 /**
 * <p> 
@@ -27,28 +27,28 @@ public interface EmployeeRepository {
     * Method which adds the details of employee taken from controller.
     * </p>
     */
-    public void addEmployee(Employee employee) throws DatabaseException;
+    public void addEmployee(Employee employee) throws EmployeeException;
 
     /**
     * <p>
     * Method which delete the details of employee by using the employee Id.
     * </p>
     */
-    public void deleteEmployee(int id) throws DatabaseException;
+    public void deleteEmployee(int id) throws EmployeeException;
 
     /**
     * <p>
     * Returns all the employees from the database.
     * </p>
     */
-    public List<Employee> getAllEmployees() throws DatabaseException;
+    public List<Employee> getAllEmployees() throws EmployeeException;
 
     /**
     * <p>
     * Method return a single employee by using the employee Id search.
     * </p>
     */
-    public Employee findEmployeeById(int id) throws DatabaseException;
+    public Employee findEmployeeById(int id) throws EmployeeException;
 
     /**
     * <p>
@@ -56,7 +56,7 @@ public interface EmployeeRepository {
     * Checking already exist or not.
     * </p>
     */
-    public void updateEmployee(Employee employee) throws DatabaseException;
+    public void updateEmployee(Employee employee) throws EmployeeException;
 
     /**
     * <p>
@@ -64,7 +64,7 @@ public interface EmployeeRepository {
     * id.
     * </p>
     */    
-    public void addProjectToEmployee(int employeeId, int projectId) throws DatabaseException;
+    public void addProjectToEmployee(int employeeId, int projectId) throws EmployeeException;
 
     /**
      * <p>
@@ -72,6 +72,6 @@ public interface EmployeeRepository {
      * id.
      * </p>
      */ 
-    public void removeProjectFromEmployee(int employeeId, int projectId) throws DatabaseException;
+    public void removeProjectFromEmployee(int employeeId, int projectId) throws EmployeeException;
 
 }

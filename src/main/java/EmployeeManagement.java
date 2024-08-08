@@ -32,7 +32,7 @@ public class EmployeeManagement {
 			int choice = scanner.nextInt();
 			try {
 				switch (choice) {
-					case 1:
+				case 1:
 						employeeController.displayEmployeeManagement();
 						break;
 					case 2:
@@ -43,12 +43,13 @@ public class EmployeeManagement {
 						break;
 					case 4:
 						System.out.println("Exiting...!");
-						break;
+						System.exit(0);
 					default:
 						System.out.println("Invalid choice.");
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("Please Enter a Valid Option1");
+				System.out.println("Please Enter a Valid Option");
+                scanner.next();
 			}
 		}
 	}

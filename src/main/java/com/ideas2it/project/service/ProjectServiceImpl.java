@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.ideas2it.project.dao.ProjectRepositoryImpl;
 import com.ideas2it.model.Project;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 
 /**
 * <p>
@@ -21,9 +21,9 @@ public class ProjectServiceImpl implements ProjectService {
     * Add method passes the parameters from controller to dao to add it
     * in the database.
     * </p>
-    * @param projectName
+    * @param name - Name of the project
     */
-    public void addProject(int id, String name) throws DatabaseException {
+    public void addProject(int id, String name) throws EmployeeException {
         Project project = new Project(id, name);
         projectRepository.addProject(project);
     }
@@ -34,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
     * assigned to a project.
     * </p>
     */
-    public void removeProject(int id) throws IllegalArgumentException, DatabaseException {
+    public void removeProject(int id) throws IllegalArgumentException, EmployeeException {
         Project project = projectRepository.findProjectById(id);
         if (project != null) {
             projectRepository.deleteProject(id);
@@ -49,7 +49,7 @@ public class ProjectServiceImpl implements ProjectService {
     * display the project while assigning to the employees.
     * </p>
     */  
-    public List<Project> getAllProjects() throws DatabaseException {
+    public List<Project> getAllProjects() throws EmployeeException {
         return projectRepository.getAllProjects();
     }
     
@@ -59,7 +59,7 @@ public class ProjectServiceImpl implements ProjectService {
     * any updates required.
     * </p>
     */
-    public Project getProjectById(int id) throws DatabaseException {
+    public Project getProjectById(int id) throws EmployeeException {
         return projectRepository.findProjectById(id);
     }
 
@@ -69,7 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
     * exists.
     * </p>
     */
-    public void updateProject(int id, String name) throws IllegalArgumentException, DatabaseException {
+    public void updateProject(int id, String name) throws IllegalArgumentException, EmployeeException {
         Project project = projectRepository.findProjectById(id);
         if (project != null) {
             project.setName(name);

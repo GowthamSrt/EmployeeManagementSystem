@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.ideas2it.employee.service.EmployeeService;
 import com.ideas2it.employee.service.EmployeeServiceImpl;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 import com.ideas2it.model.Department;
 import com.ideas2it.model.Employee;
 import com.ideas2it.model.Project;
@@ -27,9 +27,9 @@ import com.ideas2it.utils.EmployeeValidator;
 * @author  Gowthamraj
 */
 public class EmployeeController {
-    private EmployeeService employeeService = new EmployeeServiceImpl();
-    private EmployeeValidator employeeValidator = new EmployeeValidator();
-	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final EmployeeService employeeService = new EmployeeServiceImpl();
+    private final EmployeeValidator employeeValidator = new EmployeeValidator();
+	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static int idCounter = 1;
 	private static final Logger logger = LogManager.getLogger(EmployeeController.class);
     private Scanner scanner = new Scanner(System.in);
@@ -84,8 +84,8 @@ public class EmployeeController {
 				}
         }
             } catch (InputMismatchException e) {
-				logger.error("Please Enter a Valid Option (Numeric only)");
-                //displayEmployeeManagement();
+				logger.error("Please Enter a Valid Option 12345678");
+                scanner.next();
 			}
     }
 
@@ -113,10 +113,8 @@ public class EmployeeController {
                     checkName = true;
                 }
              }
-            
             while(!checkDob){
                 System.out.println("Enter employee DOB (dd-MM-yyyy): ");
-
 				try {
 					dob = LocalDate.parse(scanner.nextLine(),dateFormat);
 					int age = Period.between(dob, LocalDate.now()).getYears();
@@ -131,7 +129,6 @@ public class EmployeeController {
 					System.out.println("Invalid Date Format. Date format is dd-MM-yyyy");
 				}
             }
-			
             while(!checkEmail) {
                 System.out.print("Enter Employee EmailId: ");
                 email = scanner.nextLine();
@@ -141,7 +138,6 @@ public class EmployeeController {
                     checkEmail = true;
                 }
             }
-
             System.out.print("Enter Mobile Number: ");
             String mobile = scanner.nextLine();
             if (!mobile.matches("^\\d{10}$")) {
@@ -157,7 +153,6 @@ public class EmployeeController {
             System.out.print("Enter department Id: ");
             int departmentId = scanner.nextInt();
             scanner.nextLine();
-
             employeeService.addEmployee(idCounter, name, dob, email, mobile, departmentId);
             logger.info("Employee added successfully.");
             idCounter++;
@@ -165,8 +160,8 @@ public class EmployeeController {
             logger.error(e.getMessage());
         } catch (InputMismatchException e) {
 		    logger.error("Please Enter a Valid Option (Numeric only)");
-		} catch (DatabaseException e) {
-            logger.error("Error while adding employee" + idCounter);
+		} catch (EmployeeException e) {
+            logger.error("Error while adding employee" + idCounter, e);
         }   
     }
 
@@ -177,6 +172,8 @@ public class EmployeeController {
     * </p>
     */
     public void updateEmployee() {
+        System.out.print("Enter employee Id: ");
+        int id = scanner.nextInt();
         try {
             boolean checkName = false;
             boolean checkDob = false;
@@ -184,15 +181,11 @@ public class EmployeeController {
             LocalDate dob = null;
             String name = "";
             String email = "";
-            System.out.print("Enter employee Id: ");
-            int id = scanner.nextInt();
             if(employeeService.getEmployeeById(id) == null) {
                 System.out.println("Employee ID Not Found" + id);
                 return;
             }
-                   
             scanner.nextLine();
-
             while(!checkName){
                 System.out.print("Enter employee Name: ");
                 name = scanner.nextLine();
@@ -201,8 +194,7 @@ public class EmployeeController {
                 } else {
                     checkName = true;
                 }
-             }
-            
+            }
             while(!checkDob){
                 System.out.print("Enter employee DOB (dd-MM-yyyy): ");
 				try {
@@ -249,9 +241,9 @@ public class EmployeeController {
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
         } catch (InputMismatchException e) {
-		    logger.error("Please Enter a Valid Option (Numeric only)");
-		} catch (DatabaseException e) {
-             logger.error("Error while update" + e);
+		    logger.error("Please Enter a Valid Option (Numeric only)", e);
+		} catch (EmployeeException e) {
+             logger.error("Error while updating : " + id , e);
         }
     }
 
@@ -270,8 +262,8 @@ public class EmployeeController {
             logger.error("");
         } catch (InputMismatchException e) {
 		    logger.error("Please Enter a Valid Option (Numeric only)");
-		} catch (DatabaseException e) {
-            logger.error("Error while removing the employee" + id);
+		} catch (EmployeeException e) {
+            logger.error("Error while removing the employee" + id, e);
         }
     }
     
@@ -295,7 +287,7 @@ public class EmployeeController {
             System.out.println("-----------------------------------------"
                                    + "---------------------------------------"
                                    + "-------------------------");
-        } catch (DatabaseException e) {
+        } catch (EmployeeException e) {
             logger.error("No Employees to display!!!");
         }
     }
@@ -328,7 +320,7 @@ public class EmployeeController {
             }
         } catch (IllegalArgumentException e) {
             logger.error(e.getMessage());
-        } catch (DatabaseException e) {
+        } catch (EmployeeException e) {
             logger.error("No employee found" + e);
         }
     }
@@ -356,7 +348,7 @@ public class EmployeeController {
             logger.error(e.getMessage());
         } catch (InputMismatchException e) {
 		    logger.error("Please Enter a Valid Option (Numeric only)");
-		} catch (DatabaseException e) {
+		} catch (EmployeeException e) {
             logger.error("No such project" + e);
         }
     }
@@ -380,7 +372,7 @@ public class EmployeeController {
             logger.error(e.getMessage());
         } catch (InputMismatchException e) {
 		    logger.error("Please Enter a Valid Option (Numeric only)");
-		} catch (DatabaseException e) {
+		} catch (EmployeeException e) {
             logger.error("No such project found in ID : " + projectId);
         }
     }

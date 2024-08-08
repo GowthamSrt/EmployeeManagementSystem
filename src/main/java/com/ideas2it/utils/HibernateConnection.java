@@ -4,7 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 /**
 * <p>
 * This class is responsible for configuring and providing access to
@@ -29,11 +29,11 @@ public class HibernateConnection {
         return factory;
     }
 
-    public static void closeFactory() throws DatabaseException {
+    public static void closeFactory() throws EmployeeException {
         try {
             factory.close();
         } catch (HibernateException e) {
-            throw new DatabaseException("Factory not closed!!" + e);
+            throw new EmployeeException("Factory not closed!! : " + e);
         }
     }
 }

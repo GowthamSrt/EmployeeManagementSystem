@@ -11,7 +11,7 @@ import com.ideas2it.model.Employee;
 import com.ideas2it.model.Project;
 import com.ideas2it.project.service.ProjectService;
 import com.ideas2it.project.service.ProjectServiceImpl;
-import com.ideas2it.exception.DatabaseException;
+import com.ideas2it.exception.EmployeeException;
 
 
 
@@ -23,39 +23,39 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public void addEmployee(int id, String name, LocalDate dob, String emailId,
                             String mobile, int departmentId) 
-                            throws IllegalArgumentException, DatabaseException {
+                            throws IllegalArgumentException, EmployeeException {
         try {
             Department department = departmentService.getDepartmentById(departmentId);
             Employee employee = new Employee(id, name, dob, department, emailId, mobile); 
             employeeRepository.addEmployee(employee);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException ("No such department" + departmentId);
+            throw new IllegalArgumentException ("No such department" + departmentId, e);
         }     
     }
 
     public void removeEmployee(int id) throws IllegalArgumentException, 
-                                               DatabaseException {
+                                               EmployeeException {
         try {
             Employee employee = employeeRepository.findEmployeeById(id);
             if (employee != null) {
                 employeeRepository.deleteEmployee(id);
             }
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Employee not found" +id);
+            throw new IllegalArgumentException("Employee not found" + id, e);
         }
     }
 
-    public List<Employee> getAllEmployees() throws DatabaseException {
+    public List<Employee> getAllEmployees() throws EmployeeException {
         return employeeRepository.getAllEmployees();
     }
 
-    public Employee getEmployeeById(int id) throws DatabaseException {
+    public Employee getEmployeeById(int id) throws EmployeeException {
         return employeeRepository.findEmployeeById(id);
     }        
 
     public void updateEmployee(int id, String name, LocalDate dob,
                                String emailId, String mobile, int departmentId)
-                               throws IllegalArgumentException, DatabaseException {
+                               throws IllegalArgumentException, EmployeeException {
         try {
             Employee employee = employeeRepository.findEmployeeById(id);
             if (employee != null) {
@@ -71,20 +71,20 @@ public class EmployeeServiceImpl implements EmployeeService {
             } 
         }
         catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Employee not found" +id);
+            throw new IllegalArgumentException("Employee not found" + id, e);
         }
     }
 
-    public Department getDepartmentById(int id) throws DatabaseException {
+    public Department getDepartmentById(int id) throws EmployeeException {
         return departmentService.getDepartmentById(id);
     }
 
-    public List<Department>getAllDepartment() throws DatabaseException {
+    public List<Department>getAllDepartment() throws EmployeeException {
        return departmentService.getAllDepartments();
     }
 
     public void addProjectToEmployee(int employeeId, int projectId) throws 
-                          IllegalArgumentException, DatabaseException {
+                          IllegalArgumentException, EmployeeException {
 
         try {
             Employee employee = getEmployeeById(employeeId);
@@ -92,22 +92,22 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeRepository.addProjectToEmployee(employeeId, projectId);
         
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Employee or Project not found" + projectId + employeeId);
+            throw new IllegalArgumentException("Employee or Project not found" + employeeId, e);
         }
     }
 
     public void removeProjectFromEmployee(int employeeId, int projectId) throws 
-                          IllegalArgumentException, DatabaseException {
+                          IllegalArgumentException, EmployeeException {
         try {
             Employee employee = getEmployeeById(employeeId);
             Project project = projectService.getProjectById(projectId);
             employeeRepository.removeProjectFromEmployee(employeeId, projectId);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Employee or Project not found" + projectId + employeeId);
+            throw new IllegalArgumentException("Employee or Project not found" + employeeId, e);
         }
     }
 
-    public List<Project> getAllProjects() throws DatabaseException {
+    public List<Project> getAllProjects() throws EmployeeException {
         return projectService.getAllProjects();
     }
 }
